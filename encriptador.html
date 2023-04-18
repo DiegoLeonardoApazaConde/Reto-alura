@@ -1,0 +1,86 @@
+<head>
+    <title>Encriptador y desencriptador</title>
+</head>
+<h1>encriptar</h1>
+<input id="encdata" type="text" required>
+<input type="submit" value="Go" onclick="encriptar()">
+<input type="submit" value="Copiar" onclick="Copiar('encdata')">
+<h1>desencriptar</h1>
+<input id="desdata" type="text" >
+<input type="submit" value="Go" onclick="desencriptar()">
+<input type="submit" value="Copiar" onclick="Copiar('desdata')">
+<script>
+    
+    var letras = ["a","b","c","e","d","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","t","u","v","w","x","y","z"]
+
+    function buscar(palabra){
+       for(let p=0;p<palabra.length;p++){
+            if(letras.find(element=>element==palabra[p])==undefined){
+                location.reload()
+            };
+       }
+    }
+
+    function Copiar(idcop){
+        var cop =document.getElementById(idcop);
+        cop.focus();
+        document.execCommand('selectAll');
+        document.execCommand('copy');    
+    }
+    function encriptar(){
+        var enc = document.getElementById("encdata").value
+        let nuevaCadena =[];
+        buscar(enc)
+        console.log(enc);
+       for(let k=0;k<=enc.length;k++){
+        if(enc[k]=="a"){
+            nuevaCadena[k] ="ai" 
+        }else if(enc[k]=="e"){
+            nuevaCadena[k]="enter"
+        }else if(enc[k]=="i"){
+            nuevaCadena[k]="imes"
+        }else if(enc[k]=="o"){
+            nuevaCadena[k]="ober"
+        }else if(enc[k]=="u"){
+            nuevaCadena[k]="ufat"
+        }else{
+            nuevaCadena[k]=enc[k]
+        }
+       }
+       nuevaCadena=nuevaCadena.toString().replace(/,/g, "")
+       var desdep = document.getElementById("desdata")
+       desdep.value=nuevaCadena
+    }
+    function desencriptar(){
+        var des = document.getElementById("desdata").value
+        buscar(des);
+        let antiguaCadena=[]
+        var m=0
+        for(let j=0;j<=des.length;j++){
+                if(des[j]+des[j+1]=="ai"){
+                    antiguaCadena[m]="a";
+                    j=j+1;
+                }else if(des[j]+des[j+1]+des[j+2]+des[j+3]=="ober"){
+                    antiguaCadena[m]="o";
+                    j=j+3;
+                }else if(des[j]+des[j+1]+des[j+2]+des[j+3]=="ufat"){
+                    antiguaCadena[m]="u";
+                    j=j+3;
+                }else if(des[j]+des[j+1]+des[j+2]+des[j+3]=="imes"){
+                    antiguaCadena[m]="i";
+                    j=j+3;
+                }else if(des[j]+des[j+1]+des[j+2]+des[j+3]+des[j+4]=="enter"){
+                    antiguaCadena[m]="e";
+                    j=j+4;
+                }else{
+                    antiguaCadena[m]=des[j] 
+                }
+                m++;
+                console.log(antiguaCadena);
+        }
+        antiguaCadena=antiguaCadena.toString().replace(/,/g, "");
+        var endep = document.getElementById("encdata");
+        endep.value=antiguaCadena
+
+    }
+</script>
